@@ -37,6 +37,15 @@ class GradeCalculatorTest {
     }
 
     @Test
+    @DisplayName("59.99 оноо F үсгэн үнэлгээтэй байх ёстой.")
+    void boundaryBelowD() {
+        // Act
+        String grade = calc.letterGrade(59.99);
+        // Assert
+        assertEquals("F", grade);
+    }
+
+    @Test
     @DisplayName("Хязгаарын 0 ба 100 үнэлгээний үсгэн дүн зөв тооцоологдох ёстой")
     void boundaryMinAndMaxScores() {
         // Act & Assert
@@ -81,18 +90,25 @@ class GradeCalculatorTest {
         assertEquals(100.0, total);
     }
 
-    @Test
+@Test
     @DisplayName("Үнэлгээний бүрэлдэхүүн хэсгүүдийн утга нь зөвхөн зөв хүрээнд байх ёстой")
     void totalScoreInvalidInputsThrowException() {
-        // Сөрөг оролт (att = -5)
+        // 1. Ирцийн сөрөг оролт (att = -5)
         assertThrows(IllegalArgumentException.class, 
             () -> calc.totalScore(-5, 40, 10, 10, 30));
 
-        // Хэтэрсэн оролт (lab = 41)
+        // 2. Лабораторийн хэтэрсэн оролт (lab = 41)
         assertThrows(IllegalArgumentException.class, 
             () -> calc.totalScore(10, 41, 10, 10, 30));
-    }
 
+        // 3. Сорил 1-ийн хэтэрсэн оролт (quiz1 = 11)
+        assertThrows(IllegalArgumentException.class, 
+            () -> calc.totalScore(10, 40, 11, 10, 30));
+
+        // 4. Шалгалтын сөрөг оролт (exam = -1)
+        assertThrows(IllegalArgumentException.class, 
+            () -> calc.totalScore(10, 40, 10, 10, -1));
+    }
     @ParameterizedTest
     @DisplayName("Нийт үнэлгээний оноо шалгах (үнэлгээний задаргааны төрөл бүрийн зөв утга)")
     @CsvSource({
