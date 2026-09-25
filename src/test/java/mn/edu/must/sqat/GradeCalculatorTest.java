@@ -90,7 +90,7 @@ class GradeCalculatorTest {
         assertEquals(100.0, total);
     }
 
-@Test
+    @Test
     @DisplayName("Үнэлгээний бүрэлдэхүүн хэсгүүдийн утга нь зөвхөн зөв хүрээнд байх ёстой")
     void totalScoreInvalidInputsThrowException() {
         // 1. Ирцийн сөрөг оролт (att = -5)
